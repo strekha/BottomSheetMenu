@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/music"
+        android:icon="@drawable/ic_note"
+        android:title="Music"
+        />
+
+    <item
+        android:id="@+id/chat"
+        android:icon="@drawable/ic_chat"
+        android:title="Chat"
+        />
+
+    <group android:id="@+id/second">
+
+        <item
+            android:id="@+id/camera"
+            android:icon="@drawable/ic_camera_black_24dp"
+            android:title="Camera"
+            />
+
+        <item
+            android:id="@+id/delete"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="Delete"
+            />
+
+    </group>
+
+
+</menu>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="item_list_height">48dp</dimen>
+    <dimen name="item_list_icon_size">24dp</dimen>
+    <dimen name="item_list_margin_horizontal">16dp</dimen>
+    <dimen name="item_list_text_size">16sp</dimen>
+    <dimen name="item_list_divider_margin_top">7dp</dimen>
+    <dimen name="item_list_divider_margin_bottom">8dp</dimen>
+    <dimen name="list_padding_vertical">8dp</dimen>
+    <dimen name="list_title_height">56dp</dimen>
+    <dimen name="list_title_text_size">16sp</dimen>
+
+</resources>
