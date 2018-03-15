@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingBottom="@dimen/item_grid_title_bottom_padding"
+    >
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/icon_image_view"
+        android:layout_width="@dimen/item_grid_icon_size"
+        android:layout_height="@dimen/item_grid_icon_size"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/item_grid_icon_bottom_padding"
+        app:tint="@color/item_icon_tint"
+        tools:src="#ff0000"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon_image_view"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/item_text_color"
+        android:textSize="@dimen/item_list_text_size"
+        tools:ignore="RtlHardcoded"
+        tools:text="Item"
+        />
+
+</RelativeLayout>

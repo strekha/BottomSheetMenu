@@ -2,6 +2,7 @@ package com.strekha.bottomsheetmenu;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class Holder {
-
-    private Holder() {
-    }
+abstract class Holder {
 
     static class Title extends RecyclerView.ViewHolder {
 
         private final TextView mTextView;
 
-        public Title(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-            super(inflater.inflate(R.layout.item_title, parent, false));
+        Title(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int type) {
+            super(inflater.inflate(
+                    type == BottomSheetMenu.LIST ? R.layout.item_title : R.layout.item_grid_title,
+                    parent,
+                    false
+                  )
+            );
             mTextView = itemView.findViewById(R.id.title_text_view);
         }
 
@@ -34,14 +37,24 @@ class Holder {
         private final TextView mTitleTextView;
         @NonNull
         private final BottomSheetMenu.OnBottomMenuListener mListener;
+        private final int mPadding;
 
-        public Element(@NonNull LayoutInflater inflater,
+        Element(@NonNull LayoutInflater inflater,
                        @NonNull ViewGroup parent,
-                       @NonNull BottomSheetMenu.OnBottomMenuListener listener) {
-            super(inflater.inflate(R.layout.item_menu, parent, false));
+                       @NonNull BottomSheetMenu.OnBottomMenuListener listener,
+                       int type) {
+            super(inflater.inflate(
+                    type == BottomSheetMenu.LIST ? R.layout.item_menu : R.layout.item_grid_menu,
+                    parent,
+                    false
+                  )
+            );
             mListener = listener;
             mIconView = itemView.findViewById(R.id.icon_image_view);
             mTitleTextView = itemView.findViewById(R.id.title_text_view);
+            mPadding = type == BottomSheetMenu.LIST
+                    ? 0
+                    : parent.getResources().getDimensionPixelOffset(R.dimen.grid_padding_horizontal);
         }
 
         void bind(@NonNull final Item.Element element) {
@@ -59,13 +72,28 @@ class Holder {
                     mListener.onMenuItemSelected(element.item);
                 }
             });
+
+/*
+            ViewCompat.setPaddingRelative(
+                    itemView,
+                    isLeft ? mPadding : 0,
+                    itemView.getPaddingTop(),
+                    isRight ? mPadding : 0,
+                    itemView.getPaddingBottom()
+            );
+*/
         }
     }
 
     static class Separator extends RecyclerView.ViewHolder {
 
-        public Separator(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-            super(inflater.inflate(R.layout.item_divider, parent, false));
+        Separator(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int type) {
+            super(inflater.inflate(
+                    type == BottomSheetMenu.LIST ? R.layout.item_divider : R.layout.item_grid_divider,
+                    parent,
+                    false
+                  )
+            );
         }
     }
 }

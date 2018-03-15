@@ -15,11 +15,15 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Item> mItems;
     private final BottomSheetMenu.OnBottomMenuListener mListener;
+    private final int mItemType;
 
     MenuAdapter(@NonNull List<Item> items,
-                @NonNull BottomSheetMenu.OnBottomMenuListener listener) {
+                @NonNull BottomSheetMenu.OnBottomMenuListener listener,
+                int itemType,
+                int spanCount) {
         mItems = items;
         mListener = listener;
+        mItemType = itemType;
     }
 
     @NonNull
@@ -28,11 +32,11 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case TITLE:
-                return new Holder.Title(inflater, parent);
+                return new Holder.Title(inflater, parent, mItemType);
             case ELEMENT:
-                return new Holder.Element(inflater, parent, mListener);
+                return new Holder.Element(inflater, parent, mListener, mItemType);
             case SEPARATOR:
-                return new Holder.Separator(inflater, parent);
+                return new Holder.Separator(inflater, parent, mItemType);
             default:
                 throw new IllegalArgumentException("Unknown viewType!");
         }
@@ -71,5 +75,10 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return SEPARATOR;
         }
         throw new IllegalArgumentException("Unknown viewType!");
+    }
+
+    @NonNull
+    Item getItem(int position) {
+        return  mItems.get(position);
     }
 }

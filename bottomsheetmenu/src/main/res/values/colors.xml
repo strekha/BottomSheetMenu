@@ -2,6 +2,6 @@
 <resources>
 
     <color name="item_text_color">#DD000000</color>
-    <color name="item_icon_tint">#646464</color>
+    <color name="item_icon_tint">#838383</color>
 
 </resources>

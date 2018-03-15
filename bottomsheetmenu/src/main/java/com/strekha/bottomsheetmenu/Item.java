@@ -3,18 +3,22 @@ package com.strekha.bottomsheetmenu;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
-class Item {
+abstract class Item {
 
-    private Item() {
-    }
+    abstract int getWeight(int maxWeight);
 
     static class Title extends Item {
 
         @NonNull
         final CharSequence title;
 
-        public Title(@NonNull CharSequence title) {
+        Title(@NonNull CharSequence title) {
             this.title = title;
+        }
+
+        @Override
+        int getWeight(int maxWeight) {
+            return maxWeight;
         }
     }
 
@@ -23,12 +27,21 @@ class Item {
         @NonNull
         final MenuItem item;
 
-        public Element(@NonNull MenuItem item) {
+        Element(@NonNull MenuItem item) {
             this.item = item;
+        }
+
+        @Override
+        int getWeight(int maxWeight) {
+            return 1;
         }
     }
 
     static class Separator extends Item {
 
+        @Override
+        int getWeight(int maxWeight) {
+            return maxWeight;
+        }
     }
 }
