@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private void showMenu() {
         new BottomSheetMenu.Builder(this)
                 .inflate(R.menu.sample)
-                .withType(BottomSheetMenu.GRID)
+//                .withType(BottomSheetMenu.GRID)
                 .withTitle("Hello")
                 .withListener(item -> {
                     Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();

@@ -11,7 +11,6 @@ import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,7 +46,7 @@ public final class BottomSheetMenu {
     }
 
     public void show() {
-        final BottomSheetDialog dialog = new BottomSheetDialog(mContext);
+        final BaseBottomDialog dialog = new BaseBottomDialog(mContext);
 
         if (mBuilder.type != LIST && mBuilder.type != GRID) {
             throw new IllegalArgumentException("Unknown type! It must be one of LIST or GRID!");

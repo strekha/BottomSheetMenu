@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/icon_image_view"
-        android:layout_marginLeft="@dimen/item_list_margin_horizontal"
+        android:layout_marginLeft="@dimen/item_list_text_margin_start"
         android:layout_marginRight="@dimen/item_list_margin_horizontal"
         android:textSize="@dimen/item_list_text_size"
         android:textColor="@color/item_text_color"
