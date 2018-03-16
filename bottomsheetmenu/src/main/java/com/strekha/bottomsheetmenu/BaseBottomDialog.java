@@ -11,7 +11,7 @@ import android.view.WindowManager;
 
 public class BaseBottomDialog extends BottomSheetDialog {
 
-    public BaseBottomDialog(@NonNull Context context) {
+    BaseBottomDialog(@NonNull Context context) {
         super(context);
     }
 
