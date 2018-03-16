@@ -7,12 +7,28 @@
     android:layout_height="match_parent"
     tools:context="com.strekha.bottomsheetmenusample.MainActivity">
 
-    <Button
-        android:id="@+id/text"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show menu"
+        android:orientation="vertical"
         android:layout_centerInParent="true"
-        />
+        >
+
+        <Button
+            android:id="@+id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show list menu"
+            />
+
+        <Button
+            android:id="@+id/grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show grid menu"
+            />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
