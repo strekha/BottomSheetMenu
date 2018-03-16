@@ -6,15 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.support.annotation.IntDef;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +30,8 @@ public final class BottomSheetMenu {
     public static final int GRID = 35;
     private static final int SPAN_COUNT = 3;
 
+    private static final int[] EMPTY_STATE_SET = {};
+
     @NonNull
     private final Context mContext;
     @NonNull
@@ -32,6 +39,8 @@ public final class BottomSheetMenu {
     @NonNull
     private final MenuBuilder mMenu;
     private LayoutInflater mLayoutInflater;
+    @Nullable
+    private ColorStateList mIconTint;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LIST, GRID})
@@ -43,10 +52,11 @@ public final class BottomSheetMenu {
         mMenu = getMenu();
         mLayoutInflater = LayoutInflater.from(mContext);
         getMenuInflater().inflate(builder.menuRes, mMenu);
+        mIconTint = createDefaultColorStateList(android.R.attr.textColorSecondary);
     }
 
     public void show() {
-        final BaseBottomDialog dialog = new BaseBottomDialog(mContext);
+        final BaseBottomDialog dialog = new BaseBottomDialog(mContext, getTheme());
 
         if (mBuilder.type != LIST && mBuilder.type != GRID) {
             throw new IllegalArgumentException("Unknown type! It must be one of LIST or GRID!");
@@ -65,7 +75,7 @@ public final class BottomSheetMenu {
                     }
                 },
                 mBuilder.type,
-                SPAN_COUNT
+                mIconTint
         );
 
         RecyclerView recyclerView = (RecyclerView) mLayoutInflater.inflate(R.layout.list_menu, null);
@@ -114,6 +124,18 @@ public final class BottomSheetMenu {
         return items;
     }
 
+    @StyleRes
+    private int getTheme() {
+        int[] attr = new int[]{android.support.v7.appcompat.R.attr.isLightTheme};
+        TypedArray typedArray = mContext.obtainStyledAttributes(attr);
+        boolean isLight = typedArray.getBoolean(0, false);
+        typedArray.recycle();
+
+        return isLight
+                ? R.style.Theme_Design_Light_BottomSheetDialog
+                : R.style.Theme_Design_BottomSheetDialog;
+    }
+
     private void setupPadding(@NonNull RecyclerView recyclerView) {
 
         int horizontal = 0;
@@ -131,6 +153,21 @@ public final class BottomSheetMenu {
 
         ViewCompat.setPaddingRelative(recyclerView, horizontal, top, horizontal, bottom);
 
+    }
+
+    private ColorStateList createDefaultColorStateList(int baseColorThemeAttr) {
+        final TypedValue value = new TypedValue();
+        if (!mContext.getTheme().resolveAttribute(baseColorThemeAttr, value, true)) {
+            return null;
+        }
+        ColorStateList baseColor = AppCompatResources.getColorStateList(
+                mContext, value.resourceId);
+        int defaultColor = baseColor.getDefaultColor();
+        return new ColorStateList(new int[][]{
+                EMPTY_STATE_SET
+        }, new int[]{
+                defaultColor
+        });
     }
 
     @NonNull

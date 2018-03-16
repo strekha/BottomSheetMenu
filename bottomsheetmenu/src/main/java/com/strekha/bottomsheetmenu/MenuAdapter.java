@@ -2,6 +2,7 @@ package com.strekha.bottomsheetmenu;
 
 import java.util.List;
 
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,14 +17,16 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<Item> mItems;
     private final BottomSheetMenu.OnBottomMenuListener mListener;
     private final int mItemType;
+    private final ColorStateList mIconTint;
 
     MenuAdapter(@NonNull List<Item> items,
                 @NonNull BottomSheetMenu.OnBottomMenuListener listener,
                 int itemType,
-                int spanCount) {
+                ColorStateList iconTint) {
         mItems = items;
         mListener = listener;
         mItemType = itemType;
+        mIconTint = iconTint;
     }
 
     @NonNull
@@ -34,7 +37,7 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case TITLE:
                 return new Holder.Title(inflater, parent, mItemType);
             case ELEMENT:
-                return new Holder.Element(inflater, parent, mListener, mItemType);
+                return new Holder.Element(inflater, parent, mListener, mItemType, mIconTint);
             case SEPARATOR:
                 return new Holder.Separator(inflater, parent, mItemType);
             default:

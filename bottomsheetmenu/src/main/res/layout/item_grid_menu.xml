@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,7 +16,6 @@
         android:layout_height="@dimen/item_grid_icon_size"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/item_grid_icon_bottom_padding"
-        app:tint="@color/item_icon_tint"
         tools:src="#ff0000"
         />
 
@@ -30,7 +28,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@color/item_text_color"
+        android:textColor="?android:textColorPrimary"
         android:textSize="@dimen/item_list_text_size"
         tools:ignore="RtlHardcoded"
         tools:text="Item"

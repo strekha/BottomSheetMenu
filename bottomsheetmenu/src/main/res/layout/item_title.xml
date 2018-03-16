@@ -9,5 +9,6 @@
     android:layout_marginLeft="@dimen/item_list_margin_horizontal"
     android:layout_marginRight="@dimen/item_list_margin_horizontal"
     android:textSize="@dimen/list_title_text_size"
+    android:textColor="?android:textColorSecondary"
     tools:text="Title text"
     />

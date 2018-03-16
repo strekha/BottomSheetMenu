@@ -1,8 +1,12 @@
 package com.strekha.bottomsheetmenu;
 
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.ImageViewCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,16 +37,17 @@ abstract class Holder {
 
     static class Element extends RecyclerView.ViewHolder {
 
-        private final ImageView mIconView;
+        private final AppCompatImageView mIconView;
         private final TextView mTitleTextView;
         @NonNull
         private final BottomSheetMenu.OnBottomMenuListener mListener;
         private final int mPadding;
 
         Element(@NonNull LayoutInflater inflater,
-                       @NonNull ViewGroup parent,
-                       @NonNull BottomSheetMenu.OnBottomMenuListener listener,
-                       int type) {
+                @NonNull ViewGroup parent,
+                @NonNull BottomSheetMenu.OnBottomMenuListener listener,
+                int type,
+                @Nullable ColorStateList iconStateList) {
             super(inflater.inflate(
                     type == BottomSheetMenu.LIST ? R.layout.item_menu : R.layout.item_grid_menu,
                     parent,
@@ -55,6 +60,8 @@ abstract class Holder {
             mPadding = type == BottomSheetMenu.LIST
                     ? 0
                     : parent.getResources().getDimensionPixelOffset(R.dimen.grid_padding_horizontal);
+
+            ImageViewCompat.setImageTintList(mIconView, iconStateList);
         }
 
         void bind(@NonNull final Item.Element element) {
