@@ -1,6 +1,7 @@
 package com.strekha.bottomsheetmenusample;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 

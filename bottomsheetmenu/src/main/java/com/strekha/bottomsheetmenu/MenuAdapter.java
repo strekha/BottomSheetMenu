@@ -17,16 +17,13 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<Item> mItems;
     private final BottomSheetMenu.OnBottomMenuListener mListener;
     private final int mItemType;
-    private final ColorStateList mIconTint;
 
     MenuAdapter(@NonNull List<Item> items,
                 @NonNull BottomSheetMenu.OnBottomMenuListener listener,
-                int itemType,
-                ColorStateList iconTint) {
+                int itemType) {
         mItems = items;
         mListener = listener;
         mItemType = itemType;
-        mIconTint = iconTint;
     }
 
     @NonNull
@@ -37,7 +34,7 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case TITLE:
                 return new Holder.Title(inflater, parent, mItemType);
             case ELEMENT:
-                return new Holder.Element(inflater, parent, mListener, mItemType, mIconTint);
+                return new Holder.Element(inflater, parent, mListener, mItemType);
             case SEPARATOR:
                 return new Holder.Separator(inflater, parent, mItemType);
             default:

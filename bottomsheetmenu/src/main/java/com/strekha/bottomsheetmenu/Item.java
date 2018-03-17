@@ -1,6 +1,7 @@
 package com.strekha.bottomsheetmenu;
 
 import android.support.annotation.NonNull;
+import android.support.v4.internal.view.SupportMenuItem;
 import android.view.MenuItem;
 
 abstract class Item {
@@ -25,9 +26,9 @@ abstract class Item {
     static class Element extends Item {
 
         @NonNull
-        final MenuItem item;
+        final SupportMenuItem item;
 
-        Element(@NonNull MenuItem item) {
+        Element(@NonNull SupportMenuItem item) {
             this.item = item;
         }
 

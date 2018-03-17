@@ -1,19 +1,17 @@
 package com.strekha.bottomsheetmenu;
 
-import android.content.res.ColorStateList;
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressLint("RestrictedApi")
 abstract class Holder {
 
     static class Title extends RecyclerView.ViewHolder {
@@ -46,8 +44,7 @@ abstract class Holder {
         Element(@NonNull LayoutInflater inflater,
                 @NonNull ViewGroup parent,
                 @NonNull BottomSheetMenu.OnBottomMenuListener listener,
-                int type,
-                @Nullable ColorStateList iconStateList) {
+                int type) {
             super(inflater.inflate(
                     type == BottomSheetMenu.LIST ? R.layout.item_menu : R.layout.item_grid_menu,
                     parent,
@@ -60,10 +57,9 @@ abstract class Holder {
             mPadding = type == BottomSheetMenu.LIST
                     ? 0
                     : parent.getResources().getDimensionPixelOffset(R.dimen.grid_padding_horizontal);
-
-            ImageViewCompat.setImageTintList(mIconView, iconStateList);
         }
 
+        @SuppressLint("RestrictedApi")
         void bind(@NonNull final Item.Element element) {
             Drawable icon = element.item.getIcon();
             if (icon == null) {
@@ -80,6 +76,7 @@ abstract class Holder {
                 }
             });
 
+            ImageViewCompat.setImageTintList(mIconView, element.item.getIconTintList());
 /*
             ViewCompat.setPaddingRelative(
                     itemView,

@@ -5,6 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -14,12 +15,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
+import android.support.v4.internal.view.SupportMenu;
+import android.support.v4.internal.view.SupportMenuItem;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.content.res.AppCompatResources;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.view.SupportMenuInflater;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,14 +30,12 @@ public final class BottomSheetMenu {
     public static final int LIST = 34;
     public static final int GRID = 35;
 
-    private static final int[] EMPTY_STATE_SET = {};
-
     @NonNull
     private final Context mContext;
     @NonNull
     private final Builder mBuilder;
     @NonNull
-    private final MenuBuilder mMenu;
+    private final BottomMenuBuilder mMenu;
     private LayoutInflater mLayoutInflater;
     @Nullable
     private ColorStateList mIconTint;
@@ -51,7 +50,6 @@ public final class BottomSheetMenu {
         mMenu = getMenu();
         mLayoutInflater = LayoutInflater.from(mContext);
         getMenuInflater().inflate(builder.menuRes, mMenu);
-        mIconTint = createDefaultColorStateList(android.R.attr.textColorSecondary);
     }
 
     public void show() {
@@ -73,8 +71,7 @@ public final class BottomSheetMenu {
                         }
                     }
                 },
-                mBuilder.type,
-                mIconTint
+                mBuilder.type
         );
 
         RecyclerView recyclerView = (RecyclerView) mLayoutInflater.inflate(R.layout.list_menu, null);
@@ -89,14 +86,14 @@ public final class BottomSheetMenu {
 
     @NonNull
     private List<Item> mapToItems(@Nullable CharSequence title,
-                                  @NonNull List<MenuItem> menuItems) {
+                                  @NonNull List<SupportMenuItem> menuItems) {
         List<Item> items = new ArrayList<>();
         if (title != null) {
             items.add(new Item.Title(title));
         }
 
         int prevGroup = -1;
-        for (MenuItem menuItem : menuItems) {
+        for (SupportMenuItem menuItem : menuItems) {
             int currentGroup = menuItem.getGroupId();
             if (currentGroup != prevGroup && prevGroup != -1) {
                 items.add(new Item.Separator());
@@ -139,29 +136,16 @@ public final class BottomSheetMenu {
 
     }
 
-    private ColorStateList createDefaultColorStateList(int baseColorThemeAttr) {
-        final TypedValue value = new TypedValue();
-        if (!mContext.getTheme().resolveAttribute(baseColorThemeAttr, value, true)) {
-            return null;
-        }
-        ColorStateList baseColor = AppCompatResources.getColorStateList(
-                mContext, value.resourceId);
-        int defaultColor = baseColor.getDefaultColor();
-        return new ColorStateList(new int[][]{
-                EMPTY_STATE_SET
-        }, new int[]{
-                defaultColor
-        });
-    }
-
+    @SuppressLint("RestrictedApi")
     @NonNull
     private MenuInflater getMenuInflater() {
-        return new MenuInflater(mContext);
+        return new SupportMenuInflater(mContext);
     }
 
+    @SuppressLint("RestrictedApi")
     @NonNull
-    private MenuBuilder getMenu() {
-        return new MenuBuilder(mContext);
+    private BottomMenuBuilder getMenu() {
+        return new BottomMenuBuilder(mContext);
     }
 
     public static class Builder {
