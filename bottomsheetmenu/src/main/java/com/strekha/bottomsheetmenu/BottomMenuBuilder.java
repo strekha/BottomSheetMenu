@@ -6,6 +6,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.internal.view.SupportMenuItem;
 import android.support.v7.content.res.AppCompatResources;
@@ -22,9 +23,13 @@ class BottomMenuBuilder extends MenuBuilder {
     @Nullable
     private ColorStateList mIconColorStateList;
 
-    BottomMenuBuilder(Context context) {
+    BottomMenuBuilder(@NonNull Context context, @NonNull TintWrapper tintWrapper) {
         super(context);
-        mIconColorStateList = createDefaultColorStateList(android.R.attr.textColorSecondary);
+        if (tintWrapper == TintWrapper.DEFAULT_TINT) {
+            mIconColorStateList = createDefaultColorStateList(android.R.attr.textColorSecondary);
+        } else {
+            mIconColorStateList = null;
+        }
     }
 
     @Override
@@ -56,5 +61,17 @@ class BottomMenuBuilder extends MenuBuilder {
         }, new int[]{
                 defaultColor
         });
+    }
+
+    static class TintWrapper {
+
+        static final TintWrapper DEFAULT_TINT = new TintWrapper(null);
+
+        @Nullable
+        final ColorStateList tint;
+
+        TintWrapper(@Nullable ColorStateList tint) {
+            this.tint = tint;
+        }
     }
 }

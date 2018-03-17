@@ -9,18 +9,18 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
-import android.support.v4.internal.view.SupportMenu;
 import android.support.v4.internal.view.SupportMenuItem;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.view.SupportMenuInflater;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,8 +37,6 @@ public final class BottomSheetMenu {
     @NonNull
     private final BottomMenuBuilder mMenu;
     private LayoutInflater mLayoutInflater;
-    @Nullable
-    private ColorStateList mIconTint;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LIST, GRID})
@@ -47,7 +45,7 @@ public final class BottomSheetMenu {
     private BottomSheetMenu(@NonNull Builder builder) {
         mContext = builder.context;
         mBuilder = builder;
-        mMenu = getMenu();
+        mMenu = new BottomMenuBuilder(mContext, builder.iconTint);
         mLayoutInflater = LayoutInflater.from(mContext);
         getMenuInflater().inflate(builder.menuRes, mMenu);
     }
@@ -142,12 +140,6 @@ public final class BottomSheetMenu {
         return new SupportMenuInflater(mContext);
     }
 
-    @SuppressLint("RestrictedApi")
-    @NonNull
-    private BottomMenuBuilder getMenu() {
-        return new BottomMenuBuilder(mContext);
-    }
-
     public static class Builder {
 
         @NonNull
@@ -156,6 +148,8 @@ public final class BottomSheetMenu {
         private CharSequence title;
         private OnBottomMenuListener listener;
         private int type = LIST;
+        @NonNull
+        private BottomMenuBuilder.TintWrapper iconTint = BottomMenuBuilder.TintWrapper.DEFAULT_TINT;
 
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -188,6 +182,17 @@ public final class BottomSheetMenu {
         @NonNull
         public Builder withType(@Type int type) {
             this.type = type;
+            return this;
+        }
+
+        @NonNull
+        public Builder withIconTint(@ColorRes int iconTint) {
+            return withIconTint(AppCompatResources.getColorStateList(context, iconTint));
+        }
+
+        @NonNull
+        public Builder withIconTint(@Nullable ColorStateList iconTint) {
+            this.iconTint = new BottomMenuBuilder.TintWrapper(iconTint);
             return this;
         }
 
