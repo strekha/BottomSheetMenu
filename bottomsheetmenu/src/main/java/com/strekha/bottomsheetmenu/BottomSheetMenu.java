@@ -28,7 +28,6 @@ public final class BottomSheetMenu {
 
     public static final int LIST = 34;
     public static final int GRID = 35;
-    private static final int SPAN_COUNT = 3;
 
     private static final int[] EMPTY_STATE_SET = {};
 
@@ -79,28 +78,13 @@ public final class BottomSheetMenu {
         );
 
         RecyclerView recyclerView = (RecyclerView) mLayoutInflater.inflate(R.layout.list_menu, null);
-        recyclerView.setLayoutManager(getLayoutManager(adapter));
+        recyclerView.setLayoutManager(
+                LayoutManagerFactory.getLayoutManager(mBuilder.type, mContext, adapter)
+        );
         recyclerView.setAdapter(adapter);
         setupPadding(recyclerView);
         dialog.setContentView(recyclerView);
         dialog.show();
-    }
-
-    @NonNull
-    private RecyclerView.LayoutManager getLayoutManager(@NonNull final MenuAdapter adapter) {
-        if (mBuilder.type == LIST) {
-            return new LinearLayoutManager(mContext);
-        } else if (mBuilder.type == GRID) {
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, SPAN_COUNT);
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    return adapter.getItem(position).getWeight(SPAN_COUNT);
-                }
-            });
-            return gridLayoutManager;
-        }
-        throw new IllegalArgumentException("Unknown type! It must be one of LIST or GRID!");
     }
 
     @NonNull
