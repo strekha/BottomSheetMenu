@@ -152,7 +152,9 @@ public final class BottomSheetMenu {
         @NonNull
         private Context context;
         private int menuRes;
+        @Nullable
         private CharSequence title;
+        @Nullable
         private OnBottomMenuListener listener;
         private int type = LIST;
         @NonNull
