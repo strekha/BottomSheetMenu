@@ -19,6 +19,7 @@ import android.support.annotation.StyleRes;
 import android.support.v4.internal.view.SupportMenuItem;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.content.res.AppCompatResources;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.view.SupportMenuInflater;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -149,7 +150,7 @@ public final class BottomSheetMenu {
     public static class Builder {
 
         @NonNull
-        private final Context context;
+        private Context context;
         private int menuRes;
         private CharSequence title;
         private OnBottomMenuListener listener;
@@ -207,6 +208,7 @@ public final class BottomSheetMenu {
 
         @NonNull
         public Builder withStyle(@StyleRes int style) {
+            this.context = new ContextThemeWrapper(context, style);
             this.style = style;
             return this;
         }
