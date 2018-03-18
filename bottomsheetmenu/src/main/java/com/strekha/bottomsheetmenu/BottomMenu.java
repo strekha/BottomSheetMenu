@@ -16,14 +16,14 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 
 @SuppressLint("RestrictedApi")
-class BottomMenuBuilder extends MenuBuilder {
+class BottomMenu extends MenuBuilder {
 
     private static final int[] EMPTY_STATE_SET = {};
 
     @Nullable
     private ColorStateList mIconColorStateList;
 
-    BottomMenuBuilder(@NonNull Context context, @NonNull TintWrapper tintWrapper) {
+    BottomMenu(@NonNull Context context, @NonNull TintWrapper tintWrapper) {
         super(context);
         if (tintWrapper == TintWrapper.DEFAULT_TINT) {
             mIconColorStateList = createDefaultColorStateList(android.R.attr.textColorSecondary);

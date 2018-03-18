@@ -37,7 +37,7 @@ public final class BottomSheetMenu {
     @NonNull
     private final Builder mBuilder;
     @NonNull
-    private final BottomMenuBuilder mMenu;
+    private final BottomMenu mMenu;
     private LayoutInflater mLayoutInflater;
 
     @Retention(RetentionPolicy.SOURCE)
@@ -47,7 +47,7 @@ public final class BottomSheetMenu {
     private BottomSheetMenu(@NonNull Builder builder) {
         mContext = builder.context;
         mBuilder = builder;
-        mMenu = new BottomMenuBuilder(mContext, builder.iconTint);
+        mMenu = new BottomMenu(mContext, builder.iconTint);
         mLayoutInflater = LayoutInflater.from(mContext);
         getMenuInflater().inflate(builder.menuRes, mMenu);
         if (mBuilder.menuConsumer != null) {
@@ -156,7 +156,7 @@ public final class BottomSheetMenu {
         private OnBottomMenuListener listener;
         private int type = LIST;
         @NonNull
-        private BottomMenuBuilder.TintWrapper iconTint = BottomMenuBuilder.TintWrapper.DEFAULT_TINT;
+        private BottomMenu.TintWrapper iconTint = BottomMenu.TintWrapper.DEFAULT_TINT;
         private int style;
         @Nullable
         private MenuConsumer menuConsumer;
@@ -202,7 +202,7 @@ public final class BottomSheetMenu {
 
         @NonNull
         public Builder withIconTint(@Nullable ColorStateList iconTint) {
-            this.iconTint = new BottomMenuBuilder.TintWrapper(iconTint);
+            this.iconTint = new BottomMenu.TintWrapper(iconTint);
             return this;
         }
 
