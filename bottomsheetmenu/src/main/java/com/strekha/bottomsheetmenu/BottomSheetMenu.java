@@ -22,6 +22,7 @@ import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.view.SupportMenuInflater;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
@@ -48,6 +49,9 @@ public final class BottomSheetMenu {
         mMenu = new BottomMenuBuilder(mContext, builder.iconTint);
         mLayoutInflater = LayoutInflater.from(mContext);
         getMenuInflater().inflate(builder.menuRes, mMenu);
+        if (mBuilder.menuConsumer != null) {
+            mBuilder.menuConsumer.accept(mMenu);
+        }
     }
 
     public void show() {
@@ -153,6 +157,8 @@ public final class BottomSheetMenu {
         @NonNull
         private BottomMenuBuilder.TintWrapper iconTint = BottomMenuBuilder.TintWrapper.DEFAULT_TINT;
         private int style;
+        @Nullable
+        private MenuConsumer menuConsumer;
 
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -206,6 +212,12 @@ public final class BottomSheetMenu {
         }
 
         @NonNull
+        public Builder mapMenu(@Nullable MenuConsumer menuConsumer) {
+            this.menuConsumer = menuConsumer;
+            return this;
+        }
+
+        @NonNull
         public BottomSheetMenu create() {
             return new BottomSheetMenu(this);
         }
@@ -217,5 +229,10 @@ public final class BottomSheetMenu {
 
     public interface OnBottomMenuListener {
         void onMenuItemSelected(@NonNull MenuItem item);
+    }
+
+    public interface MenuConsumer {
+
+        void accept(@NonNull Menu menu);
     }
 }
