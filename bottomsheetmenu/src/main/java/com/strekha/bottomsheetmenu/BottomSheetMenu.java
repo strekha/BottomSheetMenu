@@ -51,7 +51,7 @@ public final class BottomSheetMenu {
     }
 
     public void show() {
-        final BaseBottomDialog dialog = new BaseBottomDialog(mContext, getTheme());
+        final BaseBottomDialog dialog = new BaseBottomDialog(mContext, getTheme(mBuilder.style));
 
         if (mBuilder.type != LIST && mBuilder.type != GRID) {
             throw new IllegalArgumentException("Unknown type! It must be one of LIST or GRID!");
@@ -104,15 +104,17 @@ public final class BottomSheetMenu {
     }
 
     @StyleRes
-    private int getTheme() {
-        int[] attr = new int[]{android.support.v7.appcompat.R.attr.isLightTheme};
-        TypedArray typedArray = mContext.obtainStyledAttributes(attr);
-        boolean isLight = typedArray.getBoolean(0, false);
-        typedArray.recycle();
+    private int getTheme(int style) {
+        if (style == 0) {
+            int[] attr = new int[]{android.support.v7.appcompat.R.attr.isLightTheme};
+            TypedArray typedArray = mContext.obtainStyledAttributes(attr);
+            boolean isLight = typedArray.getBoolean(0, false);
+            typedArray.recycle();
 
-        return isLight
-                ? R.style.Theme_Design_Light_BottomSheetDialog
-                : R.style.Theme_Design_BottomSheetDialog;
+            return isLight
+                    ? R.style.Theme_Design_Light_BottomSheetDialog
+                    : R.style.Theme_Design_BottomSheetDialog;
+        } else return style;
     }
 
     private void setupPadding(@NonNull RecyclerView recyclerView) {
@@ -150,6 +152,7 @@ public final class BottomSheetMenu {
         private int type = LIST;
         @NonNull
         private BottomMenuBuilder.TintWrapper iconTint = BottomMenuBuilder.TintWrapper.DEFAULT_TINT;
+        private int style;
 
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -193,6 +196,12 @@ public final class BottomSheetMenu {
         @NonNull
         public Builder withIconTint(@Nullable ColorStateList iconTint) {
             this.iconTint = new BottomMenuBuilder.TintWrapper(iconTint);
+            return this;
+        }
+
+        @NonNull
+        public Builder withStyle(@StyleRes int style) {
+            this.style = style;
             return this;
         }
 
