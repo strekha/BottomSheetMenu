@@ -25,6 +25,6 @@
     <dimen name="bottom_menu_grid_divider_margin_bottom">32dp</dimen>
 
     <!-- This dimen shouldn't be used -->
-    <dimen name="bottom_menu_menu_max_height">500dp</dimen>
+    <dimen name="bottom_menu_menu_max_width">500dp</dimen>
 
 </resources>

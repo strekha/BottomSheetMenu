@@ -34,7 +34,7 @@ public class BaseBottomDialog extends BottomSheetDialog {
                 );
             } else {
                 window.setLayout(
-                        getContext().getResources().getDimensionPixelOffset(R.dimen.bottom_menu_menu_max_height),
+                        getContext().getResources().getDimensionPixelOffset(R.dimen.bottom_menu_menu_max_width),
                         ViewGroup.LayoutParams.MATCH_PARENT
                 );
             }

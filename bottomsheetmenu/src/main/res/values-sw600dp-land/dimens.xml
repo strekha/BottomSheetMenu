@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="bottom_menu_menu_max_height">768dp</dimen>
+    <dimen name="bottom_menu_menu_max_width">768dp</dimen>
 
 </resources>
