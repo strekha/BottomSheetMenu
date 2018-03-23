@@ -1,7 +1,7 @@
 package com.strekha.bottomsheetmenusample;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private void showMenu(int type) {
         new BottomSheetMenu.Builder(this)
                 .inflate(R.menu.sample)
+//                .withStyle(R.style.BottomSheet_Dark)
+                .mapMenu(menu -> {
+                    MenuItemCompat.setIconTintList(menu.findItem(R.id.email), null);
+                })
                 .withType(type)
                 .withTitle("Hello")
                 .withListener(item -> {
