@@ -136,14 +136,14 @@ public final class BottomSheetMenu {
         int horizontal = 0;
 
         int bottom = mBuilder.type == LIST
-                ? mContext.getResources().getDimensionPixelOffset(R.dimen.list_padding_vertical)
+                ? mContext.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_list_padding_vertical)
                 : 0;
 
         int top = 0;
         if (mBuilder.title == null) {
             top = mBuilder.type == LIST
-                    ? mContext.getResources().getDimensionPixelOffset(R.dimen.list_padding_vertical)
-                    : mContext.getResources().getDimensionPixelOffset(R.dimen.grid_padding_vertical);
+                    ? mContext.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_list_padding_vertical)
+                    : mContext.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_grid_padding_vertical);
         }
 
         ViewCompat.setPaddingRelative(recyclerView, horizontal, top, horizontal, bottom);

@@ -56,7 +56,7 @@ abstract class Holder {
             mTitleTextView = itemView.findViewById(R.id.title_text_view);
             mPadding = type == BottomSheetMenu.LIST
                     ? 0
-                    : parent.getResources().getDimensionPixelOffset(R.dimen.grid_padding_horizontal);
+                    : parent.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_grid_padding_horizontal);
         }
 
         @SuppressLint("RestrictedApi")

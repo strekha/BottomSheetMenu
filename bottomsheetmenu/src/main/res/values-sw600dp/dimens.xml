@@ -2,28 +2,28 @@
 <resources>
 
     <!-- list -->
-    <dimen name="item_list_height">60dp</dimen>
-    <dimen name="item_list_icon_size">28dp</dimen>
-    <dimen name="item_list_margin_horizontal">32dp</dimen>
-    <dimen name="item_list_text_size">16sp</dimen>
-    <dimen name="item_list_text_margin_start">8dp</dimen>
-    <dimen name="list_divider_margin_top">7dp</dimen>
-    <dimen name="list_divider_margin_bottom">8dp</dimen>
-    <dimen name="list_padding_vertical">16dp</dimen>
-    <dimen name="list_title_height">64dp</dimen>
-    <dimen name="list_title_text_size">20sp</dimen>
+    <dimen name="bottom_menu_item_list_height">60dp</dimen>
+    <dimen name="bottom_menu_item_list_icon_size">28dp</dimen>
+    <dimen name="bottom_menu_item_list_margin_horizontal">32dp</dimen>
+    <dimen name="bottom_menu_item_list_text_size">16sp</dimen>
+    <dimen name="bottom_menu_item_list_text_margin_start">8dp</dimen>
+    <dimen name="bottom_menu_list_divider_margin_top">7dp</dimen>
+    <dimen name="bottom_menu_list_divider_margin_bottom">8dp</dimen>
+    <dimen name="bottom_menu_list_padding_vertical">16dp</dimen>
+    <dimen name="bottom_menu_list_title_height">64dp</dimen>
+    <dimen name="bottom_menu_list_title_text_size">20sp</dimen>
 
     <!-- grid -->
-    <dimen name="grid_title_height">64dp</dimen>
-    <dimen name="grid_title_text_size">20sp</dimen>
-    <dimen name="item_grid_icon_size">48dp</dimen>
-    <dimen name="item_grid_icon_bottom_padding">8dp</dimen>
-    <dimen name="item_grid_title_bottom_padding">32dp</dimen>
-    <dimen name="grid_padding_vertical">32dp</dimen>
-    <dimen name="grid_padding_horizontal">32dp</dimen>
-    <dimen name="grid_divider_margin_top">12dp</dimen>
-    <dimen name="grid_divider_margin_bottom">40dp</dimen>
+    <dimen name="bottom_menu_grid_title_height">64dp</dimen>
+    <dimen name="bottom_menu_grid_title_text_size">20sp</dimen>
+    <dimen name="bottom_menu_item_grid_icon_size">48dp</dimen>
+    <dimen name="bottom_menu_item_grid_icon_bottom_padding">8dp</dimen>
+    <dimen name="bottom_menu_item_grid_title_bottom_padding">32dp</dimen>
+    <dimen name="bottom_menu_grid_padding_vertical">32dp</dimen>
+    <dimen name="bottom_menu_grid_padding_horizontal">32dp</dimen>
+    <dimen name="bottom_menu_grid_divider_margin_top">12dp</dimen>
+    <dimen name="bottom_menu_grid_divider_margin_bottom">40dp</dimen>
 
-    <dimen name="menu_max_height">512dp</dimen>
+    <dimen name="bottom_menu_menu_max_height">512dp</dimen>
 
 </resources>

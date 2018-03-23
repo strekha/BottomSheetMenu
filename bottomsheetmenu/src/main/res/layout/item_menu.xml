@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_list_height"
+    android:layout_height="@dimen/bottom_menu_item_list_height"
     xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
     android:focusable="true"
@@ -11,11 +11,11 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/icon_image_view"
-        android:layout_width="@dimen/item_list_icon_size"
-        android:layout_height="@dimen/item_list_icon_size"
+        android:layout_width="@dimen/bottom_menu_item_list_icon_size"
+        android:layout_height="@dimen/bottom_menu_item_list_icon_size"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/item_list_margin_horizontal"
-        android:layout_marginRight="@dimen/item_list_margin_horizontal"
+        android:layout_marginLeft="@dimen/bottom_menu_item_list_margin_horizontal"
+        android:layout_marginRight="@dimen/bottom_menu_item_list_margin_horizontal"
         tools:src="#ff0000"
         />
 
@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/icon_image_view"
-        android:layout_marginLeft="@dimen/item_list_text_margin_start"
-        android:layout_marginRight="@dimen/item_list_margin_horizontal"
-        android:textSize="@dimen/item_list_text_size"
+        android:layout_marginLeft="@dimen/bottom_menu_item_list_text_margin_start"
+        android:layout_marginRight="@dimen/bottom_menu_item_list_margin_horizontal"
+        android:textSize="@dimen/bottom_menu_item_list_text_size"
         android:textColor="?android:textColorPrimary"
         android:ellipsize="end"
         android:singleLine="true"
