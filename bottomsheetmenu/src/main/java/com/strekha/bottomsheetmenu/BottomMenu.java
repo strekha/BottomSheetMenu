@@ -39,6 +39,7 @@ class BottomMenu extends MenuBuilder {
         return item;
     }
 
+    @NonNull
     List<SupportMenuItem> getItems() {
         List<MenuItemImpl> visibleItems = getVisibleItems();
         List<SupportMenuItem> items = new ArrayList<>(visibleItems.size());
