@@ -1,15 +1,19 @@
 package com.strekha.bottomsheetmenu;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 public class BaseBottomDialog extends BottomSheetDialog {
 
@@ -37,6 +41,23 @@ public class BaseBottomDialog extends BottomSheetDialog {
                         ViewGroup.LayoutParams.MATCH_PARENT
                 );
             }
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    @Override
+    protected void onStart() {
+        super.onStart();
+        boolean isLandscape = getContext().getResources().getBoolean(R.bool.isLandscape);
+        if (isLandscape) {
+            final FrameLayout sheet = findViewById(R.id.design_bottom_sheet);
+            final BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(sheet);
+            sheet.post(new Runnable() {
+                @Override
+                public void run() {
+                    sheetBehavior.setPeekHeight(sheet.getHeight() / 2);
+                }
+            });
         }
     }
 }
