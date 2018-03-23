@@ -27,6 +27,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+/**
+ * Represents a menu, which shows at the bottom of the screen.
+ * The menu contents can be populated by a menu resource file.
+ * <p>
+ * Class supports both list and grid types.
+ */
 public final class BottomSheetMenu {
 
     public static final int LIST = 34;
@@ -55,6 +61,9 @@ public final class BottomSheetMenu {
         }
     }
 
+    /**
+     * Shows the menu anchored to the bottom of the screen.
+     */
     public void show() {
         final BaseBottomDialog dialog = new BaseBottomDialog(mContext, getTheme(mBuilder.style));
 
@@ -77,7 +86,7 @@ public final class BottomSheetMenu {
                 mBuilder.type
         );
 
-        RecyclerView recyclerView = (RecyclerView) mLayoutInflater.inflate(R.layout.list_menu, null);
+        RecyclerView recyclerView = (RecyclerView) mLayoutInflater.inflate(R.layout.bottom_sheet_menu, null);
         recyclerView.setLayoutManager(
                 LayoutManagerFactory.getLayoutManager(mBuilder.type, mContext, adapter)
         );
@@ -167,47 +176,91 @@ public final class BottomSheetMenu {
             this.context = context;
         }
 
+        /**
+         * Inflate a menu resource into this BottomSheetMenu.
+         *
+         * @param menuRes Menu resource to inflate
+         */
         @NonNull
         public Builder inflate(@MenuRes int menuRes) {
             this.menuRes = menuRes;
             return this;
         }
 
+        /**
+         * Adds a title to the menu.
+         * By default menu has not any title.
+         *
+         * @param title text to be shown at the top of menu
+         */
         @NonNull
         public Builder withTitle(@NonNull CharSequence title) {
             this.title = title;
             return this;
         }
 
+        /**
+         * @see #withTitle(CharSequence)
+         */
         @NonNull
         public Builder withTitle(@StringRes int titleRes) {
             this.title = context.getString(titleRes);
             return this;
         }
 
+        /**
+         * Sets a listener that will be notified when the user selects an item from
+         * the menu.
+         *
+         * @param listener the listener to notify
+         */
         @NonNull
         public Builder withListener(@NonNull OnBottomMenuListener listener) {
             this.listener = listener;
             return this;
         }
 
+        /**
+         * Sets the type of menu.
+         * Should be one of {@link #LIST} or {@link #GRID}.
+         *
+         * @param type the type of menu
+         */
         @NonNull
         public Builder withType(@Type int type) {
             this.type = type;
             return this;
         }
 
+        /**
+         * Sets the the tint, that will be applied to icons.
+         * Default tint is depends on theme - {@link android.R.attr#textColorSecondary} will be used.
+         *
+         * @param iconTint the tint, that will be applied to icons.
+         */
         @NonNull
         public Builder withIconTint(@ColorRes int iconTint) {
             return withIconTint(AppCompatResources.getColorStateList(context, iconTint));
         }
 
+        /**
+         * @see #withIconTint(int)
+         */
         @NonNull
         public Builder withIconTint(@Nullable ColorStateList iconTint) {
             this.iconTint = new BottomMenu.TintWrapper(iconTint);
             return this;
         }
 
+        /**
+         * Sets the style, which will be applied
+         * to {@link android.support.design.widget.BottomSheetDialog}.
+         * <p>
+         * Make sure the style passed to method
+         * extends {@link R.style#Theme_Design_BottomSheetDialog} family.
+         *
+         * @param style style to apply to BottomSheetDialog
+         */
         @NonNull
         public Builder withStyle(@StyleRes int style) {
             this.context = new ContextThemeWrapper(context, style);
@@ -215,28 +268,68 @@ public final class BottomSheetMenu {
             return this;
         }
 
+        /**
+         * This method allow to modify menu items after inflating resource file.
+         * <p>
+         * This can be useful if you wand to disable default icon tint for some items:
+         * <pre>
+         *     new BottomSheetMenu.Builder(this)
+         *          .inflate(R.menu.sample)
+         *          .mapMenu(menu -> {
+         *              MenuItemCompat.setIconTintList(menu.findItem(R.id.email), null);
+         *          })
+         *          .show();
+         * </pre>
+         *
+         * @param menuConsumer callback, that will be invoked after inflating.
+         */
         @NonNull
         public Builder mapMenu(@Nullable MenuConsumer menuConsumer) {
             this.menuConsumer = menuConsumer;
             return this;
         }
 
+        /**
+         * @return created {@link BottomSheetMenu} object
+         */
         @NonNull
-        public BottomSheetMenu create() {
+        public BottomSheetMenu build() {
             return new BottomSheetMenu(this);
         }
 
+        /**
+         * Creates and shows {@link BottomSheetMenu}.
+         * @see BottomSheetMenu#show()
+         */
         public void show() {
-            create().show();
+            build().show();
         }
     }
 
+    /**
+     * Interface responsible for receiving menu item click events.
+     */
     public interface OnBottomMenuListener {
+
+        /**
+         * This method will be invoked when a menu item is clicked.
+         *
+         * @param item the menu item that was clicked
+         */
+
         void onMenuItemSelected(@NonNull MenuItem item);
     }
 
+    /**
+     * Interface responsible for receiving and consuming menu after inflating.
+     */
     public interface MenuConsumer {
 
+        /**
+         * This method will be invoked after inflating the menu resource file.
+         *
+         * @param menu menu item, which was inflated from Xml resource
+         */
         void accept(@NonNull Menu menu);
     }
 }
