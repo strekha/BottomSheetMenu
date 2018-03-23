@@ -11,8 +11,6 @@ import android.support.v7.widget.RecyclerView;
 
 final class LayoutManagerFactory {
 
-    static final int SPAN_COUNT = 3;
-
     private LayoutManagerFactory() {
     }
 
@@ -23,11 +21,12 @@ final class LayoutManagerFactory {
         if (type == LIST) {
             return new LinearLayoutManager(context);
         } else if (type == GRID) {
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, SPAN_COUNT);
+            final int spanCount = context.getResources().getInteger(R.integer.grid_size);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, spanCount);
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return adapter.getItem(position).getWeight(SPAN_COUNT);
+                    return adapter.getItem(position).getWeight(spanCount);
                 }
             });
             return gridLayoutManager;
