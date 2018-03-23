@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/music"
@@ -15,8 +18,9 @@
 
     <item
         android:id="@+id/email"
-        android:icon="@drawable/ic_email_black_24dp"
+        android:icon="@drawable/ic_gmail"
         android:title="Email"
+        app:iconTint="@null"
         />
 
 
