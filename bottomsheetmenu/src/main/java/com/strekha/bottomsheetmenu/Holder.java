@@ -16,7 +16,7 @@ abstract class Holder {
 
     static class Title extends RecyclerView.ViewHolder {
 
-        private final TextView mTextView;
+        private final TextView textView;
 
         Title(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int type) {
             super(inflater.inflate(
@@ -25,21 +25,21 @@ abstract class Holder {
                     false
                   )
             );
-            mTextView = itemView.findViewById(R.id.title_text_view);
+            textView = itemView.findViewById(R.id.title_text_view);
         }
 
         void bind(@NonNull Item.Title item) {
-            mTextView.setText(item.title);
+            textView.setText(item.title);
         }
     }
 
     static class Element extends RecyclerView.ViewHolder {
 
-        private final AppCompatImageView mIconView;
-        private final TextView mTitleTextView;
+        private final AppCompatImageView iconView;
+        private final TextView titleTextView;
         @NonNull
-        private final BottomSheetMenu.OnBottomMenuListener mListener;
-        private final int mPadding;
+        private final BottomSheetMenu.OnBottomMenuListener listener;
+        private final int padding;
 
         Element(@NonNull LayoutInflater inflater,
                 @NonNull ViewGroup parent,
@@ -51,10 +51,10 @@ abstract class Holder {
                     false
                   )
             );
-            mListener = listener;
-            mIconView = itemView.findViewById(R.id.icon_image_view);
-            mTitleTextView = itemView.findViewById(R.id.title_text_view);
-            mPadding = type == BottomSheetMenu.LIST
+            this.listener = listener;
+            iconView = itemView.findViewById(R.id.icon_image_view);
+            titleTextView = itemView.findViewById(R.id.title_text_view);
+            padding = type == BottomSheetMenu.LIST
                     ? 0
                     : parent.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_grid_padding_horizontal);
         }
@@ -63,26 +63,26 @@ abstract class Holder {
         void bind(@NonNull final Item.Element element) {
             Drawable icon = element.item.getIcon();
             if (icon == null) {
-                mIconView.setVisibility(View.GONE);
+                iconView.setVisibility(View.GONE);
             } else {
-                mIconView.setVisibility(View.VISIBLE);
-                mIconView.setImageDrawable(icon);
+                iconView.setVisibility(View.VISIBLE);
+                iconView.setImageDrawable(icon);
             }
-            mTitleTextView.setText(element.item.getTitle());
+            titleTextView.setText(element.item.getTitle());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onMenuItemSelected(element.item);
+                    listener.onMenuItemSelected(element.item);
                 }
             });
 
-            ImageViewCompat.setImageTintList(mIconView, element.item.getIconTintList());
+            ImageViewCompat.setImageTintList(iconView, element.item.getIconTintList());
 /*
             ViewCompat.setPaddingRelative(
                     itemView,
-                    isLeft ? mPadding : 0,
+                    isLeft ? padding : 0,
                     itemView.getPaddingTop(),
-                    isRight ? mPadding : 0,
+                    isRight ? padding : 0,
                     itemView.getPaddingBottom()
             );
 */

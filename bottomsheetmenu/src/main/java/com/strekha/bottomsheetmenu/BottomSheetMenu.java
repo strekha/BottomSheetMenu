@@ -38,25 +38,25 @@ public final class BottomSheetMenu {
     public static final int GRID = 35;
 
     @NonNull
-    private final Context mContext;
+    private final Context context;
     @NonNull
-    private final Builder mBuilder;
+    private final Builder builder;
     @NonNull
-    private final BottomMenu mMenu;
-    private LayoutInflater mLayoutInflater;
+    private final BottomMenu menu;
+    private LayoutInflater layoutInflater;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LIST, GRID})
     public @interface Type {}
 
     private BottomSheetMenu(@NonNull Builder builder) {
-        mContext = builder.context;
-        mBuilder = builder;
-        mMenu = new BottomMenu(mContext, builder.iconTint);
-        mLayoutInflater = LayoutInflater.from(mContext);
-        getMenuInflater().inflate(builder.menuRes, mMenu);
-        if (mBuilder.menuConsumer != null) {
-            mBuilder.menuConsumer.accept(mMenu);
+        context = builder.context;
+        this.builder = builder;
+        menu = new BottomMenu(context, builder.iconTint);
+        layoutInflater = LayoutInflater.from(context);
+        getMenuInflater().inflate(builder.menuRes, menu);
+        if (this.builder.menuConsumer != null) {
+            this.builder.menuConsumer.accept(menu);
         }
     }
 
@@ -64,30 +64,30 @@ public final class BottomSheetMenu {
      * Shows the menu anchored to the bottom of the screen.
      */
     public void show() {
-        final BaseBottomDialog dialog = new BaseBottomDialog(mContext, getTheme(mBuilder.style));
+        final BaseBottomDialog dialog = new BaseBottomDialog(context, getTheme(builder.style));
 
-        if (mBuilder.type != LIST && mBuilder.type != GRID) {
+        if (builder.type != LIST && builder.type != GRID) {
             throw new IllegalArgumentException("Unknown type! It must be one of LIST or GRID!");
         }
 
-        List<Item> items = mapToItems(mBuilder.title, mMenu.getItems());
+        List<Item> items = mapToItems(builder.title, menu.getItems());
         MenuAdapter adapter = new MenuAdapter(
                 items,
                 new OnBottomMenuListener() {
                     @Override
                     public void onMenuItemSelected(@NonNull MenuItem item) {
                         dialog.hide();
-                        if (mBuilder.listener != null) {
-                            mBuilder.listener.onMenuItemSelected(item);
+                        if (builder.listener != null) {
+                            builder.listener.onMenuItemSelected(item);
                         }
                     }
                 },
-                mBuilder.type
+                builder.type
         );
 
-        RecyclerView recyclerView = (RecyclerView) mLayoutInflater.inflate(R.layout.bottom_sheet_menu, null);
+        RecyclerView recyclerView = (RecyclerView) layoutInflater.inflate(R.layout.bottom_sheet_menu, null);
         recyclerView.setLayoutManager(
-                LayoutManagerFactory.getLayoutManager(mBuilder.type, mContext, adapter)
+                LayoutManagerFactory.getLayoutManager(builder.type, context, adapter)
         );
         recyclerView.setAdapter(adapter);
         setupPadding(recyclerView);
@@ -120,7 +120,7 @@ public final class BottomSheetMenu {
     private int getTheme(int style) {
         if (style == 0) {
             int[] attr = new int[]{android.support.v7.appcompat.R.attr.isLightTheme};
-            TypedArray typedArray = mContext.obtainStyledAttributes(attr);
+            TypedArray typedArray = context.obtainStyledAttributes(attr);
             boolean isLight = typedArray.getBoolean(0, false);
             typedArray.recycle();
 
@@ -134,15 +134,15 @@ public final class BottomSheetMenu {
 
         int horizontal = 0;
 
-        int bottom = mBuilder.type == LIST
-                ? mContext.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_list_padding_vertical)
+        int bottom = builder.type == LIST
+                ? context.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_list_padding_vertical)
                 : 0;
 
         int top = 0;
-        if (mBuilder.title == null) {
-            top = mBuilder.type == LIST
-                    ? mContext.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_list_padding_vertical)
-                    : mContext.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_grid_padding_vertical);
+        if (builder.title == null) {
+            top = builder.type == LIST
+                    ? context.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_list_padding_vertical)
+                    : context.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_grid_padding_vertical);
         }
 
         ViewCompat.setPaddingRelative(recyclerView, horizontal, top, horizontal, bottom);
@@ -152,7 +152,7 @@ public final class BottomSheetMenu {
     @SuppressLint("RestrictedApi")
     @NonNull
     private MenuInflater getMenuInflater() {
-        return new SupportMenuInflater(mContext);
+        return new SupportMenuInflater(context);
     }
 
     public static class Builder {

@@ -1,12 +1,11 @@
 package com.strekha.bottomsheetmenu;
 
-import java.util.List;
-
-import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -14,16 +13,16 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int ELEMENT = 102;
     private static final int SEPARATOR = 103;
 
-    private final List<Item> mItems;
-    private final BottomSheetMenu.OnBottomMenuListener mListener;
-    private final int mItemType;
+    private final List<Item> items;
+    private final BottomSheetMenu.OnBottomMenuListener listener;
+    private final int itemType;
 
     MenuAdapter(@NonNull List<Item> items,
                 @NonNull BottomSheetMenu.OnBottomMenuListener listener,
                 int itemType) {
-        mItems = items;
-        mListener = listener;
-        mItemType = itemType;
+        this.items = items;
+        this.listener = listener;
+        this.itemType = itemType;
     }
 
     @NonNull
@@ -32,11 +31,11 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case TITLE:
-                return new Holder.Title(inflater, parent, mItemType);
+                return new Holder.Title(inflater, parent, itemType);
             case ELEMENT:
-                return new Holder.Element(inflater, parent, mListener, mItemType);
+                return new Holder.Element(inflater, parent, listener, itemType);
             case SEPARATOR:
-                return new Holder.Separator(inflater, parent, mItemType);
+                return new Holder.Separator(inflater, parent, itemType);
             default:
                 throw new IllegalArgumentException("Unknown viewType!");
         }
@@ -44,7 +43,7 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Item item = mItems.get(position);
+        Item item = items.get(position);
         switch (getItemViewType(position)) {
             case TITLE:
                 ((Holder.Title) holder).bind((Item.Title) item);
@@ -61,12 +60,12 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return items.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        Item item = mItems.get(position);
+        Item item = items.get(position);
         if (item instanceof Item.Title) {
             return TITLE;
         } else if (item instanceof Item.Element) {
@@ -79,6 +78,6 @@ final class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @NonNull
     Item getItem(int position) {
-        return  mItems.get(position);
+        return items.get(position);
     }
 }

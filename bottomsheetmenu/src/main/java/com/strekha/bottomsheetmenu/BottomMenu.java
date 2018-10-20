@@ -21,21 +21,21 @@ class BottomMenu extends MenuBuilder {
     private static final int[] EMPTY_STATE_SET = {};
 
     @Nullable
-    private ColorStateList mIconColorStateList;
+    private ColorStateList iconColorStateList;
 
     BottomMenu(@NonNull Context context, @NonNull TintWrapper tintWrapper) {
         super(context);
         if (tintWrapper == TintWrapper.DEFAULT_TINT) {
-            mIconColorStateList = createDefaultColorStateList(android.R.attr.textColorSecondary);
+            iconColorStateList = createDefaultColorStateList(android.R.attr.textColorSecondary);
         } else {
-            mIconColorStateList = null;
+            iconColorStateList = null;
         }
     }
 
     @Override
     protected MenuItem addInternal(int group, int id, int categoryOrder, CharSequence title) {
         SupportMenuItem item = ((SupportMenuItem) super.addInternal(group, id, categoryOrder, title));
-        item.setIconTintList(mIconColorStateList);
+        item.setIconTintList(iconColorStateList);
         return item;
     }
 
