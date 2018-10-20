@@ -7,9 +7,13 @@ import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 @SuppressLint("RestrictedApi")
 abstract class Holder {
@@ -29,7 +33,7 @@ abstract class Holder {
         }
 
         void bind(@NonNull Item.Title item) {
-            textView.setText(item.title);
+            textView.setText(item.getTitle());
         }
     }
 
@@ -37,13 +41,12 @@ abstract class Holder {
 
         private final AppCompatImageView iconView;
         private final TextView titleTextView;
-        @NonNull
-        private final BottomSheetMenu.OnBottomMenuListener listener;
+        private final Function1<MenuItem, Unit> listener;
         private final int padding;
 
         Element(@NonNull LayoutInflater inflater,
                 @NonNull ViewGroup parent,
-                @NonNull BottomSheetMenu.OnBottomMenuListener listener,
+                @NonNull Function1<MenuItem, Unit> listener,
                 int type) {
             super(inflater.inflate(
                     type == BottomSheetMenu.LIST ? R.layout.item_menu : R.layout.item_grid_menu,
@@ -61,22 +64,22 @@ abstract class Holder {
 
         @SuppressLint("RestrictedApi")
         void bind(@NonNull final Item.Element element) {
-            Drawable icon = element.item.getIcon();
+            Drawable icon = element.getItem().getIcon();
             if (icon == null) {
                 iconView.setVisibility(View.GONE);
             } else {
                 iconView.setVisibility(View.VISIBLE);
                 iconView.setImageDrawable(icon);
             }
-            titleTextView.setText(element.item.getTitle());
+            titleTextView.setText(element.getItem().getTitle());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onMenuItemSelected(element.item);
+                    listener.invoke(element.getItem());
                 }
             });
 
-            ImageViewCompat.setImageTintList(iconView, element.item.getIconTintList());
+            ImageViewCompat.setImageTintList(iconView, element.getItem().getIconTintList());
 /*
             ViewCompat.setPaddingRelative(
                     itemView,
