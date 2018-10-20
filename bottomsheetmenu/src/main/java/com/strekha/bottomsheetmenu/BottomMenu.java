@@ -1,8 +1,5 @@
 package com.strekha.bottomsheetmenu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -15,6 +12,9 @@ import android.support.v7.view.menu.MenuItemImpl;
 import android.util.TypedValue;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressLint("RestrictedApi")
 class BottomMenu extends MenuBuilder {
 
@@ -25,11 +25,9 @@ class BottomMenu extends MenuBuilder {
 
     BottomMenu(@NonNull Context context, @NonNull TintWrapper tintWrapper) {
         super(context);
-        if (tintWrapper == TintWrapper.DEFAULT_TINT) {
-            iconColorStateList = createDefaultColorStateList(android.R.attr.textColorSecondary);
-        } else {
-            iconColorStateList = null;
-        }
+        iconColorStateList = tintWrapper == TintWrapper.DEFAULT_TINT
+                ? createDefaultTint(android.R.attr.textColorSecondary)
+                : tintWrapper.tint;
     }
 
     @Override
@@ -47,7 +45,7 @@ class BottomMenu extends MenuBuilder {
         return items;
     }
 
-    private ColorStateList createDefaultColorStateList(int baseColorThemeAttr) {
+    private ColorStateList createDefaultTint(int baseColorThemeAttr) {
         final TypedValue value = new TypedValue();
         if (!getContext().getTheme().resolveAttribute(baseColorThemeAttr, value, true)) {
             return null;
@@ -57,11 +55,10 @@ class BottomMenu extends MenuBuilder {
                 value.resourceId
         );
         int defaultColor = baseColor.getDefaultColor();
-        return new ColorStateList(new int[][]{
-                EMPTY_STATE_SET
-        }, new int[]{
-                defaultColor
-        });
+        return new ColorStateList(
+                new int[][]{EMPTY_STATE_SET},
+                new int[]{defaultColor}
+        );
     }
 
     static class TintWrapper {
