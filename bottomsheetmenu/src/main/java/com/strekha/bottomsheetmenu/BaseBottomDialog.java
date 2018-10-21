@@ -1,6 +1,7 @@
 package com.strekha.bottomsheetmenu;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,7 +46,8 @@ public class BaseBottomDialog extends BottomSheetDialog {
     @Override
     protected void onStart() {
         super.onStart();
-        boolean isLandscape = getContext().getResources().getBoolean(R.bool.isLandscape);
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        boolean isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE;
         if (isLandscape) {
             final FrameLayout sheet = findViewById(R.id.design_bottom_sheet);
             final BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(sheet);
