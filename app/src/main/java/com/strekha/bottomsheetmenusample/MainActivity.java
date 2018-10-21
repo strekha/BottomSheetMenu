@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private void showMenu(int type) {
         new BottomSheetMenu.Builder(this)
                 .inflate(R.menu.sample)
-//                .withStyle(R.style.BottomSheet_Dark)
                 .mapMenu(menu -> {
                     MenuItemCompat.setIconTintList(menu.findItem(R.id.email), null);
                 })
