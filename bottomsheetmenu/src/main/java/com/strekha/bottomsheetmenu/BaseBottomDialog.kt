@@ -14,18 +14,15 @@ class BaseBottomDialog internal constructor(context: Context, @StyleRes theme: I
 
     override fun onCreate(savedInstanceState: Bundle) {
         super.onCreate(savedInstanceState)
-        window?.let {
-            if (!context.resources.getBoolean(R.bool.isTablet)) {
-                it.setLayout(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            } else {
-                it.setLayout(
-                        context.resources.getDimensionPixelOffset(R.dimen.bottom_menu_menu_max_width),
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            }
+        val isTablet = context.resources.getBoolean(R.bool.isTablet)
+        window?.setLayout(getWidth(isTablet), ViewGroup.LayoutParams.MATCH_PARENT)
+    }
+
+    private fun getWidth(isTablet: Boolean): Int {
+        return if (isTablet) {
+            context.resources.getDimensionPixelOffset(R.dimen.bottom_menu_menu_max_width)
+        } else {
+            ViewGroup.LayoutParams.MATCH_PARENT
         }
     }
 
