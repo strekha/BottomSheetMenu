@@ -12,7 +12,7 @@ import android.widget.FrameLayout
 class BaseBottomDialog internal constructor(context: Context, @StyleRes theme: Int)
     : BottomSheetDialog(context, theme) {
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val isTablet = context.resources.getBoolean(R.bool.isTablet)
         window?.setLayout(getWidth(isTablet), ViewGroup.LayoutParams.MATCH_PARENT)
