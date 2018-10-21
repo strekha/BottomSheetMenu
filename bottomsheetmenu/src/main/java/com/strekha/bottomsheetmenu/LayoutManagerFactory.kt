@@ -4,8 +4,8 @@ import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.strekha.bottomsheetmenu.BottomSheetMenu.GRID
-import com.strekha.bottomsheetmenu.BottomSheetMenu.LIST
+import com.strekha.bottomsheetmenu.BottomSheetMenu.Companion.GRID
+import com.strekha.bottomsheetmenu.BottomSheetMenu.Companion.LIST
 
 internal object LayoutManagerFactory {
 

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
+import static com.strekha.bottomsheetmenu.BottomSheetMenu.GRID;
+
 @SuppressLint("RestrictedApi")
 abstract class Holder {
 
@@ -42,7 +44,7 @@ abstract class Holder {
         private final AppCompatImageView iconView;
         private final TextView titleTextView;
         private final Function1<MenuItem, Unit> listener;
-        private final int padding;
+        private final int type;
 
         Element(@NonNull LayoutInflater inflater,
                 @NonNull ViewGroup parent,
@@ -54,17 +56,19 @@ abstract class Holder {
                     false
                   )
             );
+            this.type = type;
             this.listener = listener;
             iconView = itemView.findViewById(R.id.icon_image_view);
             titleTextView = itemView.findViewById(R.id.title_text_view);
-            padding = type == BottomSheetMenu.LIST
-                    ? 0
-                    : parent.getResources().getDimensionPixelOffset(R.dimen.bottom_menu_grid_padding_horizontal);
         }
 
         @SuppressLint("RestrictedApi")
         void bind(@NonNull final Item.Element element) {
             Drawable icon = element.getItem().getIcon();
+            if (icon == null && type == GRID) {
+                throw new IllegalArgumentException("You must to provide icons in GRID mode!");
+            }
+
             if (icon == null) {
                 iconView.setVisibility(View.GONE);
             } else {
@@ -80,15 +84,6 @@ abstract class Holder {
             });
 
             ImageViewCompat.setImageTintList(iconView, element.getItem().getIconTintList());
-/*
-            ViewCompat.setPaddingRelative(
-                    itemView,
-                    isLeft ? padding : 0,
-                    itemView.getPaddingTop(),
-                    isRight ? padding : 0,
-                    itemView.getPaddingBottom()
-            );
-*/
         }
     }
 
